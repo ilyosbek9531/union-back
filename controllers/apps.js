@@ -39,19 +39,11 @@ async function getSingleApp(req, res) {
 async function putApp(req, res) {
   try {
     const appId = req.params.id;
-    const { name, tab_name, icon } = req.body;
+
+    await Apps.updateOne({ _id: appId }, { $set: req.body });
 
     const app = await Apps.findById(appId);
 
-    if (!app) {
-      return res.status(404).json({ message: "App not found" });
-    }
-
-    app.name = name || app.name;
-    app.tab_name = tab_name || app.tab_name;
-    app.icon = icon || app.icon;
-
-    await app.save();
     res.status(200).json(app);
   } catch (error) {
     res.status(500).json({ error: error.message });
