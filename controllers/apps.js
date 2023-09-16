@@ -10,12 +10,10 @@ async function getApps(req, res) {
 }
 
 async function postApp(req, res) {
-  console.log("req", req.body);
   try {
-    const { name, tab_name, icon } = req.body;
-    const user = new Apps({ name, tab_name, icon });
-    await user.save();
-    res.status(201).json(user);
+    const app = new Apps(req.body);
+    await app.save();
+    res.status(201).json(app);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -54,13 +52,10 @@ async function deleteApp(req, res) {
   try {
     const appId = req.params.id;
 
-    const app = await Apps.findById(appId);
-
+    const app = await Apps.findByIdAndRemove(appId);
     if (!app) {
       return res.status(404).json({ message: "App not found" });
     }
-
-    await app.remove();
     res.status(204).send();
   } catch (error) {
     res.status(500).json({ error: error.message });
