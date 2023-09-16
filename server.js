@@ -26,5 +26,3 @@ const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`Running express server on port ${PORT}`);
 });
-
-module.exports = app;
