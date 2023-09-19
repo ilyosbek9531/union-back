@@ -6,12 +6,12 @@ const appsSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  tab_name: {
+  icon: {
     type: String,
     required: true,
     unique: true,
   },
-  icon: {
+  eventKey: {
     type: String,
     required: true,
     unique: true,
